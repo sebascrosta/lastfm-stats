@@ -1,23 +1,32 @@
-function showArtists (json){
-
-  var artists = [];
+function showArtists (){
+  var results = {};
 
   for(var i = 0; i < json.length; i++){
-    if(artists.indexOf(json[i].artist) === -1){
-      artists.push(json[i].artist);
-
-      pArtistas.innerHTML += json[i].artist;
-      pArtistas.innerHTML += '<br>';
+    if(results[json[i].artist]){
+      results[json[i].artist] ++;
+    }else{
+      results[json[i].artist] = 1;
     }
   }
+
+  var keys = Object.keys(results).sort(function(a,b){return results[b]-results[a]});
+  var text = "";
+  for(i = 0; i < keys.length; i++){
+    if(results[keys[i]] >= 10){
+      text += ('<a href="" onclick="sendToInput(event)">' + keys[i]+ '</a>' + " - " + results[keys[i]] + '<br>')
+    }
+  }
+
+  document.getElementById('result').innerHTML = text;
+
 }
 
 
 function showArtistAndQuantity (){
-  var pArtistas = document.getElementById('artistas');
+  var results = document.getElementById('result');
   var artists = [];
 
-  for(var i = 0; i < json.length - 1; i++){
+  for(var i = 0; i < json.length; i++){
     if(artists[json[i].artist]){
       artists[json[i].artist] = artists[json[i].artist] + 1;
     } else {
@@ -29,28 +38,59 @@ function showArtistAndQuantity (){
 
   for(i = 0; i < keys.length -1 ; i++){
     var newLine = (keys[i] + " - " + artists[keys[i]] + '<br>');
-    pArtistas.innerHTML += newLine
+      results.innerHTML += newLine
   }
 }
 
 function filterBySong(song){
-  var pArtistas = document.getElementById('artistas');
   var quantity = 0;
-  var songLower = song.toLowerCase();
   var date_listened;
+  var final_result = "La canción buscada es " + song + ":\n"
 
-  pArtistas.innerHTML = "La canción buscada es " + song + ": <br>"
-
-  for (var i = 0; i < json.length - 1; i++){
-    if(json[i].song.toLowerCase() == songLower){
-      date_listened = json[i].day + "/" + json[i].month + "/" + json[i].year + " " + json[i].time + "<br>";
-      pArtistas.innerHTML += date_listened;
+  for (var i = 0; i < json.length; i++){
+    if(json[i].song.toLowerCase() == song.toLowerCase()){
+      date_listened = json[i].day + "/" + json[i].month + "/" + json[i].year + " " + json[i].time + '<br>';
+        final_result += date_listened;
       quantity++;
     }
   }
 
-  pArtistas.innerHTML += "Cantidad: ";
-  pArtistas.innerHTML += quantity;
+    final_result += "Cantidad: ";
+    final_result += quantity;
+
+    document.getElementById('result').innerHTML = final_result;
 }
 
-filterBySong('Fallout')
+function findArtistSongs (){
+  
+  var artist = document.getElementsByName('artist')[0].value;
+  var results = {};
+  var quantity = 0;
+
+  for(var i = 0; i < json.length; i++){
+    if(json[i].artist.toLowerCase() == artist.toLowerCase()){
+      if(results[json[i].song]){
+        results[json[i].song] = results[json[i].song] + 1;
+      } else {
+        results[json[i].song] = 1;
+      }
+          quantity++;
+    }
+  }
+
+  var text = "El artista buscado es " + artist + " lo escuchaste " + quantity + " veces <br>";
+  var keys = Object.keys(results).sort(function(a,b){return results[b]-results[a]})
+  var newline;
+
+  for(i = 0; i < keys.length -1 ; i++){
+    text +=  (keys[i] + " - " + results[keys[i]] + '<br>')
+  }
+
+  document.getElementById('result').innerHTML = text;
+
+}
+
+function sendToInput(e){
+  e.preventDefault();
+  document.getElementsByName('artist')[0].value = e.currentTarget.text
+}

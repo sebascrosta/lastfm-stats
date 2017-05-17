@@ -1,0 +1,13 @@
+#result {
+    width: 100%;
+    height:100vh;
+    overflow-y: scroll;
+}
+
+.left-col{
+    padding-top: 10px;
+}
+
+.btn-group{
+    margin-bottom: 10px;
+}
