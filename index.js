@@ -173,3 +173,6 @@ function sendToArtistInput(e){
   document.getElementsByName('artist-input')[0].value = e.currentTarget.text;
   findArtistSongs();
 }
+
+
+
