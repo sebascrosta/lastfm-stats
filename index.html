@@ -13,14 +13,24 @@
         <div class="col-xs-6 left-col">
 
           <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default">Most Listened Albums</button>
+            <button type="button" class="btn btn-default" onclick="mostListenedAlbums()">Most Listened Albums</button>
             <button type="button" class="btn btn-default" onclick="showArtists()">Artists with 10+ scrobbles</button>
-            <button type="button" class="btn btn-default">Right</button>
+            <button type="button" class="btn btn-default" onclick="mostListenedSongs()">Top 250 songs</button>
           </div>
 
           <div class="input-group">
-            <input type="text" class="form-control" name="artist"placeholder="Artist">
+            <input type="text" class="form-control" name="artist-input"placeholder="Artist">
             <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findArtistSongs()">Find songs!</button></span>
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control" name="song-input" placeholder="Song">
+            <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findArtistSongs()">Find songs!</button></span>
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control" name="album-input" placeholder="Album">
+            <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findAlbumSongs()">Find songs!</button></span>
           </div>
 
         </div>
