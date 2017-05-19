@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Titulo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-6 left-col">
+        <div class="row">
+            <div class="col-xs-6 left-col">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" onclick="mostListenedAlbums()">Most Listened Albums</button>
+                    <button type="button" class="btn btn-default" onclick="showArtists()">Artists with 10+ scrobbles</button>
+                    <button type="button" class="btn btn-default" onclick="mostListenedSongs()">Top 250 songs</button>
+                </div>
 
-          <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" onclick="mostListenedAlbums()">Most Listened Albums</button>
-            <button type="button" class="btn btn-default" onclick="showArtists()">Artists with 10+ scrobbles</button>
-            <button type="button" class="btn btn-default" onclick="mostListenedSongs()">Top 250 songs</button>
-          </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="artist-input" placeholder="Artist">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findArtistSongs()">Find songs!</button></span>
+                </div>
 
-          <div class="input-group">
-            <input type="text" class="form-control" name="artist-input"placeholder="Artist">
-            <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findArtistSongs()">Find songs!</button></span>
-          </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="song-input" placeholder="Song">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="filterBySong()">Find songs!</button></span>
+                </div>
 
-          <div class="input-group">
-            <input type="text" class="form-control" name="song-input" placeholder="Song">
-            <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findArtistSongs()">Find songs!</button></span>
-          </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="album-input" placeholder="Album">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findAlbumSongs()">Find songs!</button></span>
+                </div>
 
-          <div class="input-group">
-            <input type="text" class="form-control" name="album-input" placeholder="Album">
-            <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="findAlbumSongs()">Find songs!</button></span>
-          </div>
-
-          
-
+                <div class="form-inline">
+                    <input class="form-control" type="text" name="day-input" placeholder="dd">
+                    <input class="form-control" type="text" name="month-input" placeholder="mm">
+                    <input class="form-control" type="text" name="year-input" placeholder="aaaa">
+                    <button class="btn btn-default" type="button" onclick="getDaySongs()">Find songs!</button>
+                </div>
+            </div>
+            <div class="col-xs-6 full">
+                <div class="row">
+                    <div id="result" readonly></div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-xs-6 full">
-          <div class="row">
-            <div id="result" readonly></div>
-          </div>
-        </div>
-
-      </div>
     </div>
-  </body>
+</body>
 
-  <script src="./variables.js" charset="utf-8"></script>
-  <script src="./index.js" charset="utf-8"></script>
+<script src="./variables.js" charset="utf-8"></script>
+<script src="./index.js" charset="utf-8"></script>
 
 </html>
