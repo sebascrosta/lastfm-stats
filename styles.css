@@ -8,10 +8,31 @@
     padding-top: 10px;
 }
 
-.btn-group {
+.btn {
     margin-bottom: 10px;
+    display: inline-block;
 }
 
-.form-inline .form-control {
-    width: 27.4%
+.form-inline .three {
+    width: 33.3%
+}
+
+.form-inline .two {
+    width: 50%
+}
+
+.right {
+    float: right;
+}
+
+.left-row {
+    padding: 10px;
+}
+
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
 }
