@@ -274,26 +274,58 @@ function getHour() {
     }
 }
 
+// Devuelve todos los discos de un artista.
+
+function FindAllAlbumsByArtist() {
+    var artist = document.getElementsByName('artist-input')[0].value;
+    var results = {};
+    var key;
+
+    for (var i = 0; i < json.length; i++) {
+        if (json[i].artist == artist) {
+            key = json[i].artist + '-/' + json[i].album;
+            if (results[key]) {
+                results[key]++;
+            } else {
+                results[key] = 1;
+            }
+        }
+    }
+
+    var keys = Object.keys(results).sort(function(a, b) { return results[b] - results[a] });
+    var text = "<ul>";
+    for (i = 0; i < keys.length; i++) {
+        if (keys[i]) {
+            text += ('<li><a href="" onclick="sendToArtistInput(event)">' + keys[i].split('-/')[0] + '</a> - <a href="" onclick="sendToAlbumInput(event)">' + keys[i].split('-/')[1] + '</a> - ' + results[keys[i]] + '</li>')
+        }
+    }
+
+    document.getElementById('result').innerHTML = text + '</ul>';
+
+}
+
+
 
 // Si clickea en un link, lo manda a su input y ejecuta la función correspondiente para ver más info.
 
 function sendToAlbumInput(e) {
-    var values = e.currentTarget.parentNode.textContent.replace(/ - /g, '-').split('-');
+    var values = e.currentTarget.parentNode.textContent.replace(/ - /g, '-/').split('-/');
     clearInputs();
     e.preventDefault();
 
     document.getElementsByName('artist-input')[0].value = values[0];
     document.getElementsByName('album-input')[0].value = values[1];
-
+    enableButtons();
     findAlbumSongs();
 }
 
 function sendToSongInput(e) {
     clearInputs();
-    var values = e.currentTarget.parentNode.textContent.replace(/ - /g, '-').split('-');
+    var values = e.currentTarget.parentNode.textContent.replace(/ - /g, '-/').split('-/');
     e.preventDefault();
     document.getElementsByName('song-input')[0].value = values[1];
     document.getElementsByName('artist-input')[0].value = values[0];
+    enableButtons();
     filterBySong();
 }
 
@@ -302,18 +334,120 @@ function sendToArtistInput(e) {
     e.preventDefault();
     document.getElementsByName('artist-input')[0].value = e.currentTarget.text;
     findArtistSongs();
+    enableButtons();
 }
 
 function clearInputs() {
-    document.getElementsByName('artist-input')[0].value = '';
-    document.getElementsByName('song-input')[0].value = '';
-    document.getElementsByName('album-input')[0].value = '';
-    document.getElementsByName('day-input')[0].value = '';
-    document.getElementsByName('month-input')[0].value = '';
-    document.getElementsByName('year-input')[0].value = '';
+    document.getElementById('artist-input').value = '';
+    document.getElementById('song-input').value = '';
+    document.getElementById('album-input').value = '';
+    document.getElementById('day-input').value = '';
+    document.getElementById('month-input').value = '';
+    document.getElementById('year-input').value = '';
+    document.getElementById("time-input-from").value = '';
+    document.getElementById("time-input-to").value = '';
+
+
+    document.getElementById("findArtist").disabled = true;
+    document.getElementById("findSong").disabled = true;
+    document.getElementById("findAlbum").disabled = true;
+    document.getElementById("getDay").disabled = true;
+    document.getElementById("getHour").disabled = true;
+    document.getElementById("getHourAndday").disabled = true;
+    document.getElementById("findAlbumsByArtist").disabled = true;
 }
 
 function fullClear() {
     clearInputs();
     document.getElementById('result').innerHTML = '';
+}
+
+window.onload = function() {
+    var artistInput = document.getElementById('artist-input')
+    var songInput = document.getElementById('song-input')
+    var albumInput = document.getElementById('album-input')
+    var dayInput = document.getElementById("day-input")
+    var monthInput = document.getElementById("month-input")
+    var yearInput = document.getElementById("year-input")
+    var timeInputFrom = document.getElementById('time-input-from');
+    var timeInputTo = document.getElementById('time-input-to');
+
+    artistInput.addEventListener('keyup', enableButtons);
+    songInput.addEventListener('keyup', enableButtons);
+    albumInput.addEventListener('keyup', enableButtons);
+    dayInput.addEventListener('keyup', enableButtons);
+    monthInput.addEventListener('keyup', enableButtons);
+    yearInput.addEventListener('keyup', enableButtons);
+    timeInputFrom.addEventListener('keyup', enableButtons);
+    timeInputTo.addEventListener('keyup', enableButtons);
+
+}
+
+function enableButtons() {
+    var artistInput = document.getElementById('artist-input').value;
+    var songInput = document.getElementById('song-input').value;
+    var albumInput = document.getElementById('album-input').value;
+    var dayInput = document.getElementById("day-input").value;
+    var monthInput = document.getElementById("month-input").value;
+    var yearInput = document.getElementById("year-input").value;
+    var timeInputFrom = document.getElementById('time-input-from').value;
+    var timeInputTo = document.getElementById('time-input-to').value;
+
+    var findArtistBtn = document.getElementById("findArtist");
+    var findSongBtn = document.getElementById("findSong");
+    var findAlbumBtn = document.getElementById("findAlbum");
+    var getDayBtn = document.getElementById("getDay");
+    var getHourBtn = document.getElementById("getHour");
+    var getHourAnddayBtn = document.getElementById("getHourAndday");
+    var findAlbumsByArtistBtn = document.getElementById("findAlbumsByArtist");
+
+    //Botón para buscar todos los temas de un artista, solo necesita el artista.
+
+    if (artistInput) {
+        findArtistBtn.disabled = false;
+        findAlbumsByArtistBtn.disabled = false;
+    } else {
+        findArtistBtn.disabled = true;
+        findAlbumsByArtistBtn.disabled = true;
+    }
+
+    //Botón para buscar canción, necesita si o sí canción y Artista
+
+    if (artistInput && songInput) {
+        findSongBtn.disabled = false;
+    } else {
+        findSongBtn.disabled = true;
+    }
+
+    // Botón para buscar album, necesita artista y album
+
+    if (artistInput && albumInput) {
+        findAlbumBtn.disabled = false
+    } else {
+        findAlbumBtn.disabled = true
+    }
+
+    // Botón para todo lo de un día, necesita día mes y año.
+
+    if (dayInput && monthInput && yearInput) {
+        getDayBtn.disabled = false;
+    } else {
+        getDayBtn.disabled = true;
+    }
+
+    // Botón para intervalo de hora todos los días, necesito los dos de horas.
+
+    if (timeInputFrom && timeInputTo) {
+        getHourBtn.disabled = false;
+    } else {
+        getHourBtn.disabled = true;
+    }
+
+    //Botón del día y la hora necesita todos los anteriores
+
+    if (timeInputFrom && timeInputTo && dayInput && monthInput && yearInput) {
+        getHourAnddayBtn.disabled = false;
+    } else {
+        getHourAnddayBtn.disabled = true;
+    }
 }

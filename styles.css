@@ -36,3 +36,8 @@ ul {
 ul li {
     list-style: none;
 }
+
+.form-inline {
+    width: 50%;
+    display: inline-block;
+}

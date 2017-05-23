@@ -15,34 +15,34 @@
                 <div class="left-row">
 
                     <div class="input-group">
-                        <input type="text" class="form-control" name="artist-input" placeholder="Artist">
-                        <input type="text" class="form-control" name="song-input" placeholder="Song">
-                        <input type="text" class="form-control" name="album-input" placeholder="Album">
+                        <input type="text" class="form-control" id="artist-input" name="artist-input" placeholder="Artist">
+                        <input type="text" class="form-control" id="song-input" name="song-input" placeholder="Song">
+                        <input type="text" class="form-control" id="album-input" name="album-input" placeholder="Album">
                         <div class="form-inline">
-                            <input class="form-control three" type="text" name="day-input" placeholder="dd">
-                            <input class="form-control three" type="text" name="month-input" placeholder="mm">
-                            <input class="form-control three" type="text" name="year-input" placeholder="aaaa">
+                            <input class="form-control three" type="text" id="day-input" name="day-input" placeholder="dd">
+                            <input class="form-control three" type="text" id="month-input" name="month-input" placeholder="mm">
+                            <input class="form-control three" type="text" id="year-input" name="year-input" placeholder="aaaa">
                         </div>
                         <div class="form-inline">
-                            <input type="text" class="form-control two" name="time-input-from" placeholder="hh:mm Desde">
-                            <input type="text" class="form-control two" name="time-input-to" placeholder="hh:mm Hasta">
+                            <input type="text" class="form-control two" id="time-input-from" name="time-input-from" placeholder="hh:mm From">
+                            <input type="text" class="form-control two" id="time-input-to" name="time-input-to" placeholder="hh:mm To">
                         </div>
                     </div>
                 </div>
                 <div class="left-row">
-                    <button type="button" class="btn btn-default" onclick="mostListenedAlbums()">Most Listened Albums</button>
-                    <button type="button" class="btn btn-default" onclick="showArtists()">Artists with 10+ scrobbles</button>
-                    <button type="button" class="btn btn-default" onclick="mostListenedSongs()">Top 250 songs</button>
+                    <button type="button" class="btn btn-default" id="mostListenedAlbums" onclick="mostListenedAlbums()">Most Listened Albums</button>
+                    <button type="button" class="btn btn-default" id="allArtists" onclick="showArtists()">Artists with 10+ scrobbles</button>
+                    <button type="button" class="btn btn-default" id="mostListenedSongs" onclick="mostListenedSongs()">Top 250 songs</button>
                     <br>
-                    <button type="button" class="btn btn-default" onclick="findArtistSongs()">Find Artist Songs</button>
-                    <button type="button" class="btn btn-default" onclick="filterBySong()">Find single song</button>
-                    <button type="button" class="btn btn-default" onclick="findAlbumSongs()">Find album</button>
+                    <button type="button" class="btn btn-default" disabled id="findArtist" onclick="findArtistSongs()">Find Artist Songs</button>
+                    <button type="button" class="btn btn-default" disabled id="findSong" onclick="filterBySong()">Find single song</button>
+                    <button type="button" class="btn btn-default" disabled id="findAlbum" onclick="findAlbumSongs()">Find album</button>
                     <br>
-                    <button type="button" class="btn btn-default" onclick="getDaySongs()">Find scrobbles from date</button>
-                    <button type="button" class="btn btn-default" onclick="getHour()">Hour Interval</button>
-                    <button type="button" class="btn btn-default" onclick="getHourAndDay()">Hour and day</button>
-
+                    <button type="button" class="btn btn-default" disabled id="getDay" onclick="getDaySongs()">Find scrobbles from date</button>
+                    <button type="button" class="btn btn-default" disabled id="getHour" onclick="getHour()">Hour Interval</button>
+                    <button type="button" class="btn btn-default" disabled id="getHourAndday" onclick="getHourAndDay()">Hour and day</button>
                     <br>
+                    <button type="button" class="btn btn-default" disabled id="findAlbumsByArtist" onclick="FindAllAlbumsByArtist()">Find all albums by artist</button>
                     <button type="button" class="btn btn-warning" onclick="clearInputs()">Clear Inputs</button>
                     <button type="button" class="btn btn-danger" onclick="fullClear()">Clear Everything</button>
                 </div>
